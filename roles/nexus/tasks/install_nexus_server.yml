@@ -1,0 +1,25 @@
+---
+- name: ensure apt https exists
+  package:
+    name: apt-transport-https
+    state: present
+
+- name: add in sonatype gpg key
+  apt_key:
+    url: https://repo.sonatype.com/repository/community-hosted/pki/deb-gpg/DEB-GPG-KEY-Sonatype.asc
+
+- name: add sonatpye repo
+  apt_repository:
+    repo: "deb [arch=all] https://repo.sonatype.com/repository/community-apt-hosted/ bionic main"
+    update_cache: no
+
+- name: update apt repos
+  apt:
+    update_cache: yes
+
+- name: install sonatype nexus
+  apt:
+    name: "nexus-repository-manager"
+    state: present
+    force: yes
+

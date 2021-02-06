@@ -1,0 +1,49 @@
+---
+- name: update apt repos
+  apt:
+    update_cache: yes
+
+- name: install common packages
+  apt:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: install powershell
+  include_tasks: powershell.yml
+  tags: 
+    - install
+    - upgrade
+
+- name: copy shared files
+  ansible.builtin.copy:
+    src: files/home/pi/
+    dest: /home/pi/
+    owner: pi
+    group: pi
+
+- name: Create mountpoint for usb pendrive
+  ansible.builtin.file:
+    path: "{{ mountpoint_usb1 }}"
+    state: directory
+    mode: '0755'
+
+- name: mount usb pendrive
+  ansible.posix.mount:
+    path: "{{ mountpoint_usb1 }}"
+    src: /dev/sda1
+    state: mounted
+    fstype: ext4
+
+- name: Create mountpoint for persistent nfs share 
+  ansible.builtin.file:
+    path: "{{ mountpoint_nfs }}"
+    state: directory
+    mode: '0755'
+
+- name: mount persistent nfs storage
+  ansible.posix.mount:
+    path: "{{ mountpoint_nfs}}"
+    src: "{{ nfs_path }}"
+    state: mounted
+    fstype: nfs
+    opts: rw,sync,hard,intr

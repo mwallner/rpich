@@ -1,0 +1,11 @@
+---
+common_packages:
+  - vim
+  - ack-grep
+
+mountpoint_usb1: "/mnt/usb1"
+mountpoint_nfs: "/mnt/nfs/rpich"
+
+nfs_server: "192.168.0.201"
+nfs_path: "192.168.0.201:/rpich"
+

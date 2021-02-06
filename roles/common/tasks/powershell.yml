@@ -1,0 +1,7 @@
+---
+- name: install powershell 4 raspberry
+  include_tasks: powershell_raspberry.yml
+  when:
+    - type == "raspberry"
+  tags:
+    - install

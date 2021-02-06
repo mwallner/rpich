@@ -1,0 +1,59 @@
+
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: pi
+    ansible_become: true
+    ansible_become_user: root
+    ansible_python_interpreter: /usr/bin/python3
+
+  hosts:
+    pic-0: 
+      ansible_host: 192.168.0.130
+    pic-1: 
+      ansible_host: 192.168.0.131
+    pic-2: 
+      ansible_host: 192.168.0.132
+    pic-3: 
+      ansible_host: 192.168.0.133
+    pic-4: 
+      ansible_host: 192.168.0.134
+
+  children:
+    pi4: 
+      hosts:
+        pic-0:
+        pic-1:
+    pi3:
+      hosts:
+        pic-2:
+        pic-3:
+        pic-4:
+
+    rpich:
+      hosts:
+        pic-0:
+        pic-1:
+        pic-2:
+        pic-3:
+        pic-4:
+      vars:
+        type: "raspberry"
+
+    rpich_controller:
+        hosts:
+          pic-0:
+        vars:
+          node: "controller"
+
+    rpich_nodes:
+        hosts:
+          pic-1:
+          pic-2:
+          pic-3:
+          pic-4:
+        vars:
+          node: "worker"
+          controller_ip: 192.168.0.130
+          
+

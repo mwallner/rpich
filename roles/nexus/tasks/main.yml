@@ -1,0 +1,8 @@
+---
+- name: install nexus
+  include_tasks: install_nexus_server.yml
+  when:
+    - node == "controller"
+  tags:
+    - init
+

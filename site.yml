@@ -1,0 +1,11 @@
+---
+- hosts: all
+  roles:
+    - common
+  tags:
+    - common
+
+- hosts: rpich_controller
+  roles:
+    - nexus
+
