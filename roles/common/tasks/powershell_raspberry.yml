@@ -1,1 +1,34 @@
 ---
+- name: update apt repos
+  apt:
+    update_cache: yes
+
+- name: install dependencies
+  apt:
+    pkg:
+    - libssl1.1
+    - libunwind8
+    state: present
+
+- name: download powershell release
+  get_url:
+    url: "{{ rpi_pwsh_url }}"
+    dest: "{{ rpi_tmp_dl_file }}"
+    checksum: "{{ rpi_pwsh_checksum }}"
+
+- name: ensure powershell target directory exists
+  file:
+    path: "{{ rpi_target_dir }}"
+    state: directory
+
+- name: install/unpack powershell
+  ansible.builtin.unarchive:
+    src: "{{ rpi_tmp_dl_file }}"
+    dest: "{{ rpi_target_dir }}"
+    remote_src: yes
+
+- name: create pwsh symlink
+  file:
+    src: "{{ rpi_target_dir }}/pwsh"
+    dest: "{{ rpi_link_dest }}"
+    state: link
