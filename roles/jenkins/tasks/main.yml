@@ -1,0 +1,15 @@
+---
+- name: install jenkins server 
+  include_tasks: jenkins_controller.yml
+  when:
+    - node == "controller"
+  tags:
+    - install
+
+- name: install jenkins agent
+  include_tasks: jenkins_agent.yml
+  when:
+    - node == "worker"
+  tags:
+    - install
+

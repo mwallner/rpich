@@ -9,3 +9,11 @@
   roles:
     - nexus
 
+- hosts: rpich
+  roles:
+    - jenkins
+
+- hosts: pic-1
+  roles:
+    - flickr-uploadr
+

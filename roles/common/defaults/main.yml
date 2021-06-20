@@ -2,6 +2,10 @@
 common_packages:
   - vim
   - ack-grep
+  - openjdk-11-jdk
+  - speedtest-cli
+  - python3
+  - python3-pip
 
 mountpoint_usb1: "/mnt/usb1"
 mountpoint_nfs: "/mnt/nfs/rpich"

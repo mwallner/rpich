@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: copy shared files (home)
+      ansible.builtin.copy:
+        src: ../files/home/pi/
+        dest: /home/pi/
+        owner: pi
+        group: pi
+
+    - name: copy shared files (speedtest fix)
+      ansible.builtin.copy:
+        src: ../files/usr/lib/python3/dist-packages/
+        dest: /usr/lib/python3/dist-packages/
+        owner: pi
+        group: pi

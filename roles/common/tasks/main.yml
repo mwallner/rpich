@@ -1,4 +1,8 @@
 ---
+- name: Set timezone to Europe/Vienna
+  community.general.timezone:
+    name: Europe/Vienna
+
 - name: update apt repos
   apt:
     update_cache: yes
@@ -34,6 +38,13 @@
     state: mounted
     fstype: ext4
 
+- name: Change usb pendrive file ownership, group and permissions
+  ansible.builtin.file:
+    path: "{{ mountpoint_usb1 }}"
+    owner: pi
+    group: pi
+    mode: '0755'
+
 - name: Create mountpoint for persistent nfs share 
   ansible.builtin.file:
     path: "{{ mountpoint_nfs }}"
@@ -47,3 +58,4 @@
     state: mounted
     fstype: nfs
     opts: rw,sync,hard,intr
+

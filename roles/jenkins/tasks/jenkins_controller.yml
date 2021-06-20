@@ -1,0 +1,38 @@
+---
+- name: add in jenkins gpg key
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins.io.key 
+
+- name: add jenkins repo
+  apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian binary/"
+    update_cache: no
+
+- name: update apt repos
+  apt:
+    update_cache: yes
+
+- name: install jenkins
+  apt:
+    name: "jenkins"
+    state: present
+    force: yes
+
+- name: Start & Enable Jenkins
+  systemd:
+    name: jenkins
+    state: started
+    enabled: true
+
+- name: Sleep for 30 seconds and continue with play
+  wait_for: timeout=30
+
+- name: Get init password Jenkins
+  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+  changed_when: false
+  register: result
+
+- name: Print init password Jenkins
+  debug:
+    var: result.stdout
+

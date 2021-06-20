@@ -1,0 +1,10 @@
+---
+# NOTE: the uploadr script is now triggered via jenkins job
+#- name: cronjob that triggers uploadr 
+#  ansible.builtin.cron:
+#    name: uploadr
+#    weekday: "*"
+#    hour: "*"
+#    user: pi
+#    job: "/mnt/nfs/rpich/flickr-uploader/uploadr.sh"
+
