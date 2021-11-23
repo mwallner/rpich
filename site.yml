@@ -16,4 +16,5 @@
 - hosts: pic-1
   roles:
     - flickr-uploadr
+    - gitea
 

@@ -12,14 +12,14 @@
 
 - name: "Gitea: Create gitea custom directory"
   file:
-    path: "/home/{{ gitea_user }}/custom"
+    path: "{{ gitea_home }}/{{ gitea_user }}/custom"
     state: "directory"
 
 - name: "Gitea: Download Gitea"
   get_url:
     url: "{{ gitea_download_url }}"
     checksum: "{{ gitea_checksum_url }}"
-    dest: "/home/{{ gitea_user }}/gitea"
+    dest: "{{ gitea_home }}/{{ gitea_user }}/gitea"
     mode: "0755"
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
@@ -35,13 +35,13 @@
 
 - name: "Gitea: Create gitea config directory"
   file:
-    path: "/home/{{ gitea_user }}/custom/conf"
+    path: "{{ gitea_home }}/{{ gitea_user }}/custom/conf"
     state: "directory"
 
 - name: "Create gitea config"
   template:
     src: "app.ini.j2"
-    dest: "/home/{{ gitea_user }}/custom/conf/app.ini"
+    dest: "{{ gitea_home }}/{{ gitea_user }}/custom/conf/app.ini"
   notify:
     - "reload systemd"
     - "restart gitea"

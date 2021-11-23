@@ -13,8 +13,8 @@ RestartSec=2s
 Type=simple
 User=git
 Group=git
-WorkingDirectory=/home/git
-ExecStart=/home/git/gitea web
+WorkingDirectory=/mnt/nfs/rpich/gitea
+ExecStart=/mnt/nfs/rpich/gitea/git/gitea web
 Restart=always
 Environment=USER=git
 
