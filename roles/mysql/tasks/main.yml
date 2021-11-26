@@ -1,0 +1,16 @@
+---
+- name: install mysql (mariadb)
+  become: yes
+  become_method: sudo
+  apt: name={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - mariadb-client
+    - php7.1-mysql
+  tags:
+    - mysql
+
+- name: Create the .my.cnf file
+  template: src=.my.cnf dest=/home/pi/.my.cnf
+  tags:
+    - mysql

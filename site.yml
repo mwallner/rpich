@@ -8,6 +8,7 @@
 - hosts: rpich_controller
   roles:
     - nexus
+    - mysql
 
 - hosts: rpich
   roles:
